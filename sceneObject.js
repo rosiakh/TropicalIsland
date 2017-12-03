@@ -71,7 +71,7 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
 		textureObject.image.onload = function() {
 			handleLoadedTexture(textureObject)
 		}
-		
+	
 		this.textureObject = textureObject;
 	}
 }

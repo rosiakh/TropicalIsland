@@ -23,6 +23,11 @@ var directionalLightDiffuseIntensity;
 
 var directionalLightDirection;
 
-var pointLightColor;
+var pointLight_Color;
 
-var pointLightPosition;
+var pointLight_Position;
+
+var fog = {
+	color: new Float32Array([0.0, 0.0, 1.0]),
+	distance: new Float32Array([5, 40])
+};

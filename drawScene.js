@@ -19,6 +19,9 @@ function setLightUniforms() {
 
 	gl.uniform3fv(shaderProgram.pointLight_Color, pointLight_Color);
 	gl.uniform3fv(shaderProgram.pointLight_Position, pointLight_Position);
+
+	gl.uniform3fv(shaderProgram.fogColor, fog.color);
+	gl.uniform2fv(shaderProgram.fogDistance, fog.distance);
 }
 
 function drawScene() {

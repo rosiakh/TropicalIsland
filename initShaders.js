@@ -40,7 +40,7 @@ function createProgram() {
     gl.enableVertexAttribArray(program.vertexNormalAttribute);
 
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
-    //gl.enableVertexAttribArray(program.textureCoordAttribute);
+    //aTextureCoord enabled and disabled in sceneObject.draw()
     
     program.pMatrixUniform = gl.getUniformLocation(program, "uPMatrix");
     program.mvMatrixUniform = gl.getUniformLocation(program, "uMVMatrix");
@@ -59,6 +59,9 @@ function createProgram() {
     program.hasTexture = gl.getUniformLocation(program, "uHasTexture");
 
     program.materialShininess = gl.getUniformLocation(program, "uMaterialShininess");
+
+    program.fogColor = gl.getUniformLocation(program, "uFogColor");
+    program.fogDistance = gl.getUniformLocation(program, "uFogDistance");
 
     return program;
 }

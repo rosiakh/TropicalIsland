@@ -15,6 +15,9 @@ uniform vec3 uPointLight_Position;
 uniform sampler2D uSampler;
 uniform bool uHasTexture;
 
+uniform vec3 uFogColor;
+uniform vec2 uFogDistance;
+
 uniform float uMaterialShininess;
 
 varying vec3 vTransformedNormal;
@@ -55,6 +58,13 @@ void main(void) {
     	fragmentColor = defaultSurfaceColor;
     }
 
-    gl_FragColor = vec4(fragmentColor.rgb * lightWeighting, fragmentColor.a);
+    vec3 colorWithLight = fragmentColor.rgb * lightWeighting;
+
+    // fog
+    float distanceToFragment = sqrt(vPosition.x * vPosition.x + vPosition.y * vPosition.y + vPosition.z * vPosition.z);
+    float fogFactor = clamp((uFogDistance.y - distanceToFragment) / (uFogDistance.y - uFogDistance.x), 0.0, 1.0);
+    vec3 colorWithFog = mix(uFogColor, colorWithLight, fogFactor);
+
+    gl_FragColor = vec4(colorWithFog, fragmentColor.a);
 }
 `;
