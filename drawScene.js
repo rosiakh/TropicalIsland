@@ -1,3 +1,4 @@
+
 function setMatrixUniforms(mvMatrix) {
 	let normalMatrix = mat3.create();
 

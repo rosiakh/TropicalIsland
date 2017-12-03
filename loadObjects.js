@@ -25,10 +25,14 @@ function handleLoadedObjects(data) {
     	OBJ.initMeshBuffers(gl, data[mesh]);
     }
 
-    sceneObjects['tree_1'] = new SceneObject(data['tree'].vertexBuffer, data['tree'].indexBuffer, data['tree'].normalBuffer);
-    sceneObjects['tree_2'] = new SceneObject(data['tree'].vertexBuffer, data['tree'].indexBuffer, data['tree'].normalBuffer);
-    sceneObjects['pig'] = new SceneObject(data['pig'].vertexBuffer, data['pig'].indexBuffer, data['pig'].normalBuffer);
-    sceneObjects['boat'] = new SceneObject(data['boat'].vertexBuffer, data['boat'].indexBuffer, data['boat'].normalBuffer);
+    sceneObjects['tree_1'] = 
+    	createSceneObject(data['tree'].vertexBuffer, data['tree'].indexBuffer, data['tree'].normalBuffer, data['tree'].textureBuffer);
+    sceneObjects['tree_2'] = 
+    	createSceneObject(data['tree'].vertexBuffer, data['tree'].indexBuffer, data['tree'].normalBuffer, data['tree'].textureBuffer);
+    sceneObjects['pig'] = 
+    	createSceneObject(data['pig'].vertexBuffer, data['pig'].indexBuffer, data['pig'].normalBuffer, data['pig'].textureBuffer);
+    sceneObjects['boat'] = 
+    	createSceneObject(data['boat'].vertexBuffer, data['boat'].indexBuffer, data['boat'].normalBuffer, data['boat'].textureBuffer);
  
     objectsLoaded = true;
 
@@ -41,4 +45,16 @@ function loadObjects() {
         'pig': 'models/pig.obj',
         'boat': 'models/Cruiser 2012.obj'}, 
         handleLoadedObjects);
+
+    let {
+    	vertexPositionBuffer,
+        vertexIndexBuffer,
+        vertexNormalBuffer,
+        vertexTextureCoordBuffer,
+        textureObjectSource,
+        materialShininess
+    } = createIsland();
+
+    sceneObjects['island'] = createSceneObject(
+    	vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, textureObjectSource, materialShininess);
 }

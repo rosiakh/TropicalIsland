@@ -12,14 +12,20 @@ uniform vec3 uDirectionalLight_Direction;
 uniform vec3 uPointLight_Color;
 uniform vec3 uPointLight_Position;
 
+uniform sampler2D uSampler;
+uniform bool uHasTexture;
+
+uniform float uMaterialShininess;
+
 varying vec3 vTransformedNormal;
 varying vec4 vPosition;
 varying mat4 vMVMatrix;
+varying vec2 vTextureCoord;
 
 void main(void) {
-    vec4 surfaceColor = vec4(1.0, 0.8, 0.3, 1.0);
+	vec4 defaultSurfaceColor = vec4(1.0, 0.8, 0.3, 1.0);
+    vec4 fragmentColor;
     float surfaceSpecularIntensity = 0.6;
-    float materialShininess = 32.0;
 
     vec3 normalizedTransformedNormal = normalize(vTransformedNormal);
     vec4 transformedDirectionalLight_Direction = normalize(uWVMatrix * vec4(uDirectionalLight_Direction, 0.0));
@@ -32,8 +38,8 @@ void main(void) {
     vec3 directionalLight_Reflect = reflect(-transformedDirectionalLight_Direction.xyz, normalizedTransformedNormal);
     vec3 pointLight_Reflect = reflect(-transformedPointLight_Direction.xyz, normalizedTransformedNormal);
 
-    float directionalLight_SpecularFactor = pow(max(dot(fragmentToCamera, directionalLight_Reflect), 0.0), materialShininess);
-    float pointLight_SpecularFactor = pow(max(dot(fragmentToCamera, pointLight_Reflect), 0.0), materialShininess);
+    float directionalLight_SpecularFactor = pow(max(dot(fragmentToCamera, directionalLight_Reflect), 0.0), uMaterialShininess);
+    float pointLight_SpecularFactor = pow(max(dot(fragmentToCamera, pointLight_Reflect), 0.0), uMaterialShininess);
 
     vec3 lightWeighting = 
     	uDirectionalLight_Color * uDirectionalLight_AmbientIntensity +
@@ -42,6 +48,13 @@ void main(void) {
     	uPointLight_Color * pointLight_DiffuseFactor +
     	uPointLight_Color * surfaceSpecularIntensity * pointLight_SpecularFactor;
 
-    gl_FragColor = vec4(surfaceColor.rgb * lightWeighting, surfaceColor.a);
+    if (uHasTexture) {
+    	fragmentColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+    }
+    else {
+    	fragmentColor = defaultSurfaceColor;
+    }
+
+    gl_FragColor = vec4(fragmentColor.rgb * lightWeighting, fragmentColor.a);
 }
 `;

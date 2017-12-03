@@ -1,5 +1,5 @@
 
-function SceneObject(positionBuffer, indexBuffer, normalBuffer) {	
+function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, textureObjectSource, materialShininess = 100) {	
 	Object.defineProperty(this, 'mwMatrix', {
 		get: function() {
 			let mwMatrix = mat4.create();
@@ -18,6 +18,12 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer) {
 	this.positionBuffer = positionBuffer;
 	this.indexBuffer = indexBuffer;
 	this.normalBuffer = normalBuffer;
+	this.textureBuffer = textureBuffer;
+
+	this.textureObjectSource = textureObjectSource;
+	this.textureObject;
+
+	this.materialShininess = materialShininess;
 
 	this.translationVector = [0, 0, 0];
 	this.scalingVector = [1, 1, 1];
@@ -35,10 +41,46 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer) {
     	gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
     	gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
+    	if (this.textureObject !== undefined) {
+    		gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
+    		gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
+    		gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, textureBuffer.itemSize, gl.FLOAT, false, 0, 0);
+	
+	    	gl.activeTexture(gl.TEXTURE0);
+	    	gl.bindTexture(gl.TEXTURE_2D, this.textureObject);
+    		gl.uniform1i(shaderProgram.samplerUniform, 0);
+    		gl.uniform1i(shaderProgram.hasTexture, true);
+    	}
+    	else {
+    		gl.disableVertexAttribArray(shaderProgram.textureCoordAttribute);
+    		gl.uniform1i(shaderProgram.hasTexture, false);
+    	}
+
     	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 
     	setMatrixUniforms(mvMatrix);
+    	gl.uniform1f(shaderProgram.materialShininess, this.materialShininess);
 
     	gl.drawElements(gl.TRIANGLES, indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 	}
+
+	this.initTexture = function() {
+		let textureObject = gl.createTexture();
+		textureObject.image = new Image();
+		textureObject.image.src = "images/" + textureObjectSource;
+		textureObject.image.onload = function() {
+			handleLoadedTexture(textureObject)
+		}
+		
+		this.textureObject = textureObject;
+	}
+}
+
+function createSceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, textureObjectSource, materialShininess = 100) {
+	let sceneObject = new SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, textureObjectSource, materialShininess);
+	if (textureObjectSource !== undefined) {
+		sceneObject.initTexture();
+	}
+
+	return sceneObject;
 }

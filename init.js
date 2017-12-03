@@ -18,7 +18,6 @@ function webGLStart() {
     initGL(canvas);
     initShaders();
     initCamera();
-    initBuffers();
     initLights();
     loadObjects(); 
 

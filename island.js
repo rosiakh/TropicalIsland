@@ -1,5 +1,5 @@
 
-function initBuffers() {
+function createIsland() {
     let latitudeBands = 100;
     let longitudeBands = 100;
     let radius = 1;
@@ -7,6 +7,7 @@ function initBuffers() {
     let vertexPositionData = [];
     let normalData = [];
     let indexData = [];
+    let textureCoords = [];
 
     for (let latNumber = 0; latNumber <= latitudeBands; latNumber++) {
         let theta = latNumber * Math.PI / latitudeBands;
@@ -28,6 +29,9 @@ function initBuffers() {
             vertexPositionData.push(radius * x);
             vertexPositionData.push(radius * y);
             vertexPositionData.push(radius * z);
+
+            textureCoords.push(1 - (longNumber / longitudeBands));
+            textureCoords.push(1 - (latNumber / longitudeBands));
         }
     }
 
@@ -63,5 +67,18 @@ function initBuffers() {
     islandVertexIndexBuffer.itemSize = 1;
     islandVertexIndexBuffer.numItems = indexData.length;
 
-    sceneObjects['island'] = new SceneObject(islandVertexPositionBuffer, islandVertexIndexBuffer, islandVertexNormalBuffer);
+    let islandVertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, islandVertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
+    islandVertexTextureCoordBuffer.itemSize = 2;
+    islandVertexTextureCoordBuffer.numItems = textureCoords.length / 2;
+
+    return {
+        vertexPositionBuffer: islandVertexPositionBuffer,
+        vertexIndexBuffer: islandVertexIndexBuffer,
+        vertexNormalBuffer: islandVertexNormalBuffer,
+        vertexTextureCoordBuffer: islandVertexTextureCoordBuffer,
+        textureObjectSource: "mud.gif",
+        materialShininess: 5
+    }
 }

@@ -38,6 +38,9 @@ function createProgram() {
 
     program.vertexNormalAttribute = gl.getAttribLocation(program, "aVertexNormal");
     gl.enableVertexAttribArray(program.vertexNormalAttribute);
+
+    program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
+    //gl.enableVertexAttribArray(program.textureCoordAttribute);
     
     program.pMatrixUniform = gl.getUniformLocation(program, "uPMatrix");
     program.mvMatrixUniform = gl.getUniformLocation(program, "uMVMatrix");
@@ -51,6 +54,11 @@ function createProgram() {
 
     program.pointLight_Color = gl.getUniformLocation(program, "uPointLight_Color");
     program.pointLight_Position = gl.getUniformLocation(program, "uPointLight_Position");
+
+    program.samplerUniform = gl.getUniformLocation(program, "uSampler");
+    program.hasTexture = gl.getUniformLocation(program, "uHasTexture");
+
+    program.materialShininess = gl.getUniformLocation(program, "uMaterialShininess");
 
     return program;
 }
