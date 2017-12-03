@@ -21,8 +21,8 @@ function getShaderFromString(gl, shaderString, type) {
 }    
 
 function createProgram() {
-    let fragmentShader = getShaderFromString(gl, vertexShaderString, "vertex");
-    let vertexShader = getShaderFromString(gl, fragmentShaderString, "fragment");
+    let vertexShader = getShaderFromString(gl, vertexShaderString, "vertex");
+    let fragmentShader = getShaderFromString(gl, fragmentShaderString, "fragment");
     let program = gl.createProgram();
 
     gl.attachShader(program, vertexShader);
@@ -42,12 +42,16 @@ function createProgram() {
     program.pMatrixUniform = gl.getUniformLocation(program, "uPMatrix");
     program.mvMatrixUniform = gl.getUniformLocation(program, "uMVMatrix");
     program.nMatrixUniform = gl.getUniformLocation(program, "uNMatrix");
-    program.ambientColorUniform = gl.getUniformLocation(program, "uAmbientColor");
-    program.pointLightingLocationUniform = gl.getUniformLocation(program, "uPointLightingLocation");
-    program.pointLightingColorUniform = gl.getUniformLocation(program, "uPointLightingColor");
-    program.directionalLightDirectionUniform = gl.getUniformLocation(program, "uDirectionalLightDirection");
-    program.directionalLightDiffuseColorUniform = gl.getUniformLocation(program, "uDirectionalLightDiffuseColor");
-    
+    program.wvMatrixUniform = gl.getUniformLocation(program, "uWVMatrix");
+
+    program.directionalLight_Color = gl.getUniformLocation(program, "uDirectionalLight_Color");
+    program.directionalLight_AmbientIntensity = gl.getUniformLocation(program, "uDirectionalLight_AmbientIntensity");
+    program.directionalLight_DiffuseIntensity = gl.getUniformLocation(program, "uDirectionalLight_DiffuseIntensity");
+    program.directionalLight_Direction = gl.getUniformLocation(program, "uDirectionalLight_Direction");
+
+    program.pointLight_Color = gl.getUniformLocation(program, "uPointLight_Color");
+    program.pointLight_Position = gl.getUniformLocation(program, "uPointLight_Position");
+
     return program;
 }
 

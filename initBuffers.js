@@ -1,7 +1,7 @@
 
 function initBuffers() {
-    let latitudeBands = 30;
-    let longitudeBands = 30;
+    let latitudeBands = 100;
+    let longitudeBands = 100;
     let radius = 1;
 
     let vertexPositionData = [];

@@ -1,4 +1,3 @@
-
 function setMatrixUniforms(mvMatrix) {
 	let normalMatrix = mat3.create();
 
@@ -8,37 +7,28 @@ function setMatrixUniforms(mvMatrix) {
     gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
     gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);   
     gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, normalMatrix);
+    gl.uniformMatrix4fv(shaderProgram.wvMatrixUniform, false, camera.wvMatrix);
 }
 
-function createLighting() {
-	var ambientColor = [0.2, 0.2, 0.2];
-    gl.uniform3fv(shaderProgram.ambientColorUniform, ambientColor);
+function setLightUniforms() {	
+	gl.uniform3fv(shaderProgram.directionalLight_Color, directionalLight_Color);
+	gl.uniform3fv(shaderProgram.directionalLight_AmbientIntensity, directionalLight_AmbientIntensity);
+	gl.uniform3fv(shaderProgram.directionalLight_DiffuseIntensity, directionalLight_DiffuseIntensity);
+	gl.uniform3fv(shaderProgram.directionalLight_Direction, directionalLight_Direction);
 
-    var pointLightPosition = [0, 1, 0];
-    gl.uniform3fv(shaderProgram.pointLightingLocationUniform, pointLightPosition);
-
-    var pointLightColor = [0.4, 0.7, 0.1];
-    gl.uniform3fv(shaderProgram.pointLightingColorUniform, pointLightColor);
-
-    var directionalLightDirection = [1, 0, 0];
-    var adjustedLD = vec3.create();
-    vec3.normalize(directionalLightDirection, adjustedLD);
-    vec3.scale(adjustedLD, -1);
-    gl.uniform3fv(shaderProgram.directionalLightDirectionUniform, adjustedLD);
-
-    var directionalLightDiffuseColor = [0.3, 0.1, 0.1];
-    gl.uniform3fv(shaderProgram.directionalLightDiffuseColorUniform, directionalLightDiffuseColor);
+	gl.uniform3fv(shaderProgram.pointLight_Color, pointLight_Color);
+	gl.uniform3fv(shaderProgram.pointLight_Position, pointLight_Position);
 }
 
 function drawScene() {
-    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+	gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 
     gl.useProgram(shaderProgram);
 
-    createLighting();
+    setLightUniforms();
     
 	if (!objectsLoaded) {
 	        return;

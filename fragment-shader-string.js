@@ -2,40 +2,34 @@ var fragmentShaderString = `
 
 precision mediump float;
 
+uniform mat4 uWVMatrix;
+
+uniform vec3 uDirectionalLight_Color;
+uniform vec3 uDirectionalLight_AmbientIntensity;
+uniform vec3 uDirectionalLight_DiffuseIntensity;
+uniform vec3 uDirectionalLight_Direction;
+
+uniform vec3 uPointLight_Color;
+uniform vec3 uPointLight_Position;
+
 varying vec3 vTransformedNormal;
 varying vec4 vPosition;
-
-uniform vec3 uAmbientColor;
-
-uniform vec3 uDirectionalLightDirection;
-uniform vec3 uDirectionalLightDiffuseColor;
-
-uniform vec3 uPointLightingLocation;
-uniform vec3 uPointLightingColor;
-
 varying mat4 vMVMatrix;
 
-
 void main(void) {
-    precision mediump float;
-    vec3 lightWeighting;
+    vec4 surfaceColor = vec4(1.0, 0.8, 0.3, 1.0);
 
-    vec3 normal = normalize(vTransformedNormal);
-    vec4 transformedLightDirection = vMVMatrix * vec4(uDirectionalLightDirection, 0.0);
-    float directionalLightWeighting = max(dot(vTransformedNormal.xyz, normalize(transformedLightDirection.xyz)), 0.0);
+    vec4 transformedDirectionalLight_Direction = uWVMatrix * vec4(uDirectionalLight_Direction, 0.0);
+    vec4 transformedPointLight_Direction = (uWVMatrix * vec4(uPointLight_Position, 1.0) - vPosition);
 
-    float diffuseLightWeighting = max(dot(normal, normalize(uDirectionalLightDirection)), 0.0);
-        
-    vec3 pointLightDirection = normalize(uPointLightingLocation - vPosition.xyz);
-    float pointLightWeighting = max(dot(normalize(vTransformedNormal), pointLightDirection), 0.0);
+    float directionalLight_DiffuseFactor = max(dot(normalize(vTransformedNormal), normalize(transformedDirectionalLight_Direction.xyz)), 0.0);
+    float pointLight_DiffuseFactor = max(dot(normalize(vTransformedNormal), normalize(transformedPointLight_Direction.xyz)), 0.0);
 
-    lightWeighting = uAmbientColor + 
-    uDirectionalLightDiffuseColor * diffuseLightWeighting * directionalLightWeighting +
-    uPointLightingColor * pointLightWeighting;
+    vec3 lightWeighting = 
+    	uDirectionalLight_Color * uDirectionalLight_AmbientIntensity +
+    	uDirectionalLight_Color * uDirectionalLight_DiffuseIntensity * directionalLight_DiffuseFactor + 
+    	uPointLight_Color * pointLight_DiffuseFactor;
 
-    vec4 fragmentColor;
-    fragmentColor = vec4(1.0, 1.0, 1.0, 1.0);
-
-    gl_FragColor = vec4(fragmentColor.rgb * lightWeighting, fragmentColor.a);
+    gl_FragColor = vec4(surfaceColor.rgb * lightWeighting, surfaceColor.a);
 }
 `;

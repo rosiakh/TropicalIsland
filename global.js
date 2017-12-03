@@ -14,3 +14,15 @@ var camera;
 var gl;
 
 var shaderProgram;
+
+var directionalLightColor;
+
+var directionalLightAmbientIntensity;
+
+var directionalLightDiffuseIntensity;
+
+var directionalLightDirection;
+
+var pointLightColor;
+
+var pointLightPosition;

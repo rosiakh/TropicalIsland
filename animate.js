@@ -1,4 +1,9 @@
 
+function animateLight(timeNow) {
+	pointLight_Position = [0.0, 3.0, 10 * Math.cos(timeNow/1200)];
+	directionalLight_Direction = [10 * Math.cos(timeNow/5000), 10 * Math.sin(timeNow/5000), -1.0];
+}
+
 function animate() {
     let timeNow = new Date().getTime();
 
@@ -25,6 +30,7 @@ function animate() {
     }
     
     lastTime = timeNow;
+    animateLight(timeNow);
 }
 
 function tick() {
