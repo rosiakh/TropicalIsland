@@ -1,6 +1,6 @@
 
 function initLights() {
-	directionalLight_Color = [1.0, 1.0, 1.0];
+	directionalLight_Color = [0.6, 0.6, 0.6];
 
 	directionalLight_AmbientIntensity = [0.1, 0.1, 0.1];
 	
@@ -10,5 +10,5 @@ function initLights() {
 	
 	pointLight_Color = [0.2, 1.0, 0.2];
 	
-	pointLight_Position = [0.0, 3.0, 5.0];
+	pointLight_Position = [0.0, 7.0, 5.0];
 }
