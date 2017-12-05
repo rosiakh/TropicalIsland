@@ -15,21 +15,6 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
 		}
 	});
 
-	Object.defineProperty(this, 'mwMatrix_billboard', {
-		get: function() {
-			let mwMatrix = mat4.create();
-
-			mat4.identity(mwMatrix);
-			mat4.translate(mwMatrix, this.translationVector);
-	    	mat4.scale(mwMatrix, this.scalingVector);
-	    	mat4.rotate(mwMatrix, degToRad(this.rotationAngleX), [1, 0, 0]);
-	    	mat4.rotate(mwMatrix, degToRad(this.rotationAngleY), [0, 1, 0]);
-	    	mat4.rotate(mwMatrix, degToRad(this.rotationAngleZ), [0, 0, 1]);
-
-		    return mwMatrix;
-		}
-	});
-
 	this.positionBuffer = positionBuffer;
 	this.indexBuffer = indexBuffer;
 	this.normalBuffer = normalBuffer;
@@ -46,8 +31,18 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
 	this.rotationAngleY = 0; // in degrees
 	this.rotationAngleZ = 0; // in degrees
 
-	this.draw = function(isBillboard) {
-		if(isBillboard) {
+	this.isBillboard = false;
+
+	this.moveBy = function(transVector) {
+		this.translationVector = this.translationVector.map((item, index) => item += this.transVector[index]);
+	}
+
+	this.moveTo = function(posVector) {
+		this.translationVector = posVector;
+	}
+
+	this.draw = function() {
+		if(this.isBillboard) {
 			mvMatrix = mat4.multiply(camera.wvMatrix, this.mwMatrix);
 
 			// find vector to origin

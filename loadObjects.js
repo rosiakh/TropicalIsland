@@ -59,4 +59,5 @@ function loadObjects() {
     	vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, textureObjectSource, materialShininess);
 
     loadBillboards();
+    loadParticles();
 }

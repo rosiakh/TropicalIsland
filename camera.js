@@ -13,19 +13,6 @@ function Camera() {
 		}
 	});
 
-	Object.defineProperty(this, 'wvMatrix_billboard', {
-		get: function() {
-			let wvMatrix = mat4.create();
-
-			mat4.identity(wvMatrix);
-			mat4.rotate(wvMatrix, degToRad(-this.pitch), [1, 0, 0]);
-		    mat4.rotate(wvMatrix, degToRad(-this.yaw), [0, 1, 0]);	    
-		    mat4.translate(wvMatrix, [-this.xPos, -this.yPos, -this.zPos]);
-
-		    return wvMatrix;
-		}
-	});
-
 	this.xPos = 0;
 	this.yPos = 0;
 	this.zPos = 0;

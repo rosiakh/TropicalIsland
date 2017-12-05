@@ -40,7 +40,14 @@ function drawScene() {
 
 	for (sceneObject in sceneObjects) {
 		sceneObjects[sceneObject].draw();
-	}
+	}	
 
-	billboard1.draw(true);
+ 	gl.enable(gl.BLEND);
+ 	gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+ 	for (particle of particles) {
+ 		particle.draw();
+ 	}
+
+	gl.disable(gl.BLEND);
 }

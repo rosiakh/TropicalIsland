@@ -1,7 +1,13 @@
 
 function animateLight(timeNow) {
-	pointLight_Position = [0.0, 1.0, 10 * Math.cos(timeNow/1200)];
+	//pointLight_Position = [0.0, 1.0, 10 * Math.cos(timeNow/1200)];
 	directionalLight_Direction = [10 * Math.cos(timeNow/5000), 10 * Math.sin(timeNow/5000), -1.0];
+}
+
+function animateParticles(elapsed) {
+    for (particle of particles) {
+        particle.moveBy(particle.speedVector.map(x => x) * elapsed, elapsed);
+    }
 }
 
 function animate() {
@@ -27,6 +33,8 @@ function animate() {
 
         camera.yaw += camera.yawRate * elapsed;
         camera.pitch += camera.pitchRate * elapsed;
+
+        animateParticles(elapsed);
     }
     
     lastTime = timeNow;

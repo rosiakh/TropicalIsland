@@ -32,6 +32,6 @@ var fog = {
 	distance: new Float32Array([5, 40])
 };
 
-// billboards
+var particles = [];
 
-var billboard1;
+var numberOfParticles = 200;

@@ -64,9 +64,11 @@ function loadBillboards() {
         materialShininess
     } = new Billboard();
 
-    billboard1 = createSceneObject(
+    let billboard = createSceneObject(
         vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, textureObjectSource, materialShininess);
 
-    billboard1.translationVector = [1.0, 0.3, -1.0];
-    billboard1.scalingVector = [1.0, 1.0, 1.0];
+    billboard.translationVector = [-3.0, 0.3, -4.0];
+    billboard.scalingVector = [1.0, 1.0, 1.0];
+    billboard.isBillboard = true;
+    sceneObjects["billboard1"] = billboard;
 }
