@@ -15,6 +15,21 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
 		}
 	});
 
+	Object.defineProperty(this, 'mwMatrix_billboard', {
+		get: function() {
+			let mwMatrix = mat4.create();
+
+			mat4.identity(mwMatrix);
+			mat4.translate(mwMatrix, this.translationVector);
+	    	mat4.scale(mwMatrix, this.scalingVector);
+	    	mat4.rotate(mwMatrix, degToRad(this.rotationAngleX), [1, 0, 0]);
+	    	mat4.rotate(mwMatrix, degToRad(this.rotationAngleY), [0, 1, 0]);
+	    	mat4.rotate(mwMatrix, degToRad(this.rotationAngleZ), [0, 0, 1]);
+
+		    return mwMatrix;
+		}
+	});
+
 	this.positionBuffer = positionBuffer;
 	this.indexBuffer = indexBuffer;
 	this.normalBuffer = normalBuffer;
@@ -31,9 +46,26 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
 	this.rotationAngleY = 0; // in degrees
 	this.rotationAngleZ = 0; // in degrees
 
-	this.draw = function() {
-		// compute mvMatrix
-		mvMatrix = mat4.multiply(camera.wvMatrix, this.mwMatrix);
+	this.draw = function(isBillboard) {
+		if(isBillboard) {
+			mvMatrix = mat4.multiply(camera.wvMatrix, this.mwMatrix);
+
+			// find vector to origin
+			//let vectorFromOrigin = mat4.multiplyVec3(mvMatrix, [0.0, 0.0, 0.0]);
+			//let vectorToOrigin = vectorFromOrigin.map(x => -x);
+
+			let rotBillboardMatrix = mat4.create();
+			mat4.identity(rotBillboardMatrix);	
+			
+			// initial rotation angle for billboard is implicitly 0
+			mat4.rotate(rotBillboardMatrix, degToRad(camera.yaw), [0, 1, 0]);
+			//mat4.translate(rotBillboardMatrix, vectorToOrigin);
+			//mat4.translate(rotBillboardMatrix, vectorFromOrigin);
+			mvMatrix = mat4.multiply(mvMatrix, rotBillboardMatrix);
+		}
+		else {
+			mvMatrix = mat4.multiply(camera.wvMatrix, this.mwMatrix);	
+		}
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, positionBuffer.itemSize, gl.FLOAT, false, 0, 0);

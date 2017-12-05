@@ -1,6 +1,6 @@
 
 function animateLight(timeNow) {
-	pointLight_Position = [0.0, 3.0, 10 * Math.cos(timeNow/1200)];
+	pointLight_Position = [0.0, 1.0, 10 * Math.cos(timeNow/1200)];
 	directionalLight_Direction = [10 * Math.cos(timeNow/5000), 10 * Math.sin(timeNow/5000), -1.0];
 }
 

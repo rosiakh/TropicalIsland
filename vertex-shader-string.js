@@ -11,6 +11,8 @@ uniform mat4 uPMatrix;
 uniform mat3 uNMatrix;
 uniform mat4 uWVMatrix;
 
+//uniform bool isBillboard;
+
 varying vec3 vTransformedNormal;
 varying vec4 vPosition;
 varying mat4 vMVMatrix;
@@ -22,5 +24,7 @@ void main(void) {
     vTransformedNormal = uNMatrix * aVertexNormal;
     vMVMatrix = uMVMatrix;
     vTextureCoord = aTextureCoord;
+
+    //vec4 toOriginVector
 }
 `;

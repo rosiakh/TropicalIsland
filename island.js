@@ -78,7 +78,7 @@ function createIsland() {
         vertexIndexBuffer: islandVertexIndexBuffer,
         vertexNormalBuffer: islandVertexNormalBuffer,
         vertexTextureCoordBuffer: islandVertexTextureCoordBuffer,
-        textureObjectSource: "mud.gif",
-        materialShininess: 5
+        textureObjectSource: "sand.jpg",
+        materialShininess: 0.5
     }
 }

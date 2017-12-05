@@ -32,7 +32,7 @@ function handleLoadedObjects(data) {
     sceneObjects['pig'] = 
     	createSceneObject(data['pig'].vertexBuffer, data['pig'].indexBuffer, data['pig'].normalBuffer, data['pig'].textureBuffer);
     sceneObjects['boat'] = 
-    	createSceneObject(data['boat'].vertexBuffer, data['boat'].indexBuffer, data['boat'].normalBuffer, data['boat'].textureBuffer);
+    	createSceneObject(data['boat'].vertexBuffer, data['boat'].indexBuffer, data['boat'].normalBuffer, data['boat'].textureBuffer, "dark.jpg");
  
     objectsLoaded = true;
 
@@ -57,4 +57,6 @@ function loadObjects() {
 
     sceneObjects['island'] = createSceneObject(
     	vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, textureObjectSource, materialShininess);
+
+    loadBillboards();
 }

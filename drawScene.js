@@ -41,4 +41,6 @@ function drawScene() {
 	for (sceneObject in sceneObjects) {
 		sceneObjects[sceneObject].draw();
 	}
+
+	billboard1.draw(true);
 }
