@@ -8,3 +8,53 @@ function handleLoadedTexture(textureObject) {
 	gl.generateMipmap(gl.TEXTURE_2D);
     gl.bindTexture(gl.TEXTURE_2D, null);
 }
+
+function updateTextures() {
+	texBox1 = document.getElementById("texBox1").checked;
+	texBox2 = document.getElementById("texBox2").checked;
+	texBox3 = document.getElementById("texBox3").checked;
+
+	for (sceneObject in sceneObjects) {
+		let textureObject = sceneObjects[sceneObject].textureObject;
+
+		if (texBox1) {
+			gl.bindTexture(gl.TEXTURE_2D, textureObject);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+		}
+		else {
+			gl.bindTexture(gl.TEXTURE_2D, textureObject);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+		}
+
+		if (texBox2) {
+			gl.bindTexture(gl.TEXTURE_2D, textureObject);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+		}
+		else {
+			gl.bindTexture(gl.TEXTURE_2D, textureObject);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+			gl.generateMipmap(gl.TEXTURE_2D);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+		}
+
+		if (texBox3) {
+			gl.bindTexture(gl.TEXTURE_2D, textureObject);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAX_LOD, 1000);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_LOD, -1000);
+			gl.generateMipmap(gl.TEXTURE_2D);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+		}
+		else {
+			gl.bindTexture(gl.TEXTURE_2D, textureObject);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAX_LOD, 2);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_LOD, -2);
+			gl.generateMipmap(gl.TEXTURE_2D);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+		}
+	}
+
+	// don't change particles' textures
+}

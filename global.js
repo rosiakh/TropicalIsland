@@ -16,15 +16,11 @@ var gl;
 var shaderProgram;
 
 var directionalLightColor;
-
 var directionalLightAmbientIntensity;
-
 var directionalLightDiffuseIntensity;
-
 var directionalLightDirection;
 
 var pointLight_Color;
-
 var pointLight_Position;
 
 var fog = {
@@ -33,5 +29,4 @@ var fog = {
 };
 
 var particles = [];
-
 var numberOfParticles = 200;

@@ -46,7 +46,7 @@ function loadParticles() {
     	} = new Billboard();
 
     	let billboard = createSceneObject(
-        	vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, textureObjectSource, materialShininess);
+        	vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, "fire.jpg", materialShininess);
 
     	billboard.translationVector = particle.startingLocation;
     	billboard.scalingVector = [0.01, 0.01, 0.01];
