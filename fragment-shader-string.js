@@ -13,7 +13,9 @@ uniform vec3 uPointLight_Color;
 uniform vec3 uPointLight_Position;
 
 uniform sampler2D uSampler;
+uniform sampler2D uSampler2;
 uniform bool uHasTexture;
+uniform bool uHasTexture2;
 
 uniform vec3 uFogColor;
 uniform vec2 uFogDistance;
@@ -52,10 +54,18 @@ void main(void) {
     	uPointLight_Color * surfaceSpecularIntensity * pointLight_SpecularFactor;
 
     if (uHasTexture) {
-    	fragmentColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+        if (uHasTexture2) {
+            vec4 color1 = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+            vec4 color2 = texture2D(uSampler2, vec2(vTextureCoord.s, vTextureCoord.t));
+            fragmentColor = mix(color1, color2, 0.2);
+            //fragmentColor = color1;
+        } else {
+            vec4 color1 = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+            fragmentColor = color1;  
+        }	
     }
     else {
-    	fragmentColor = defaultSurfaceColor;
+        fragmentColor = defaultSurfaceColor;
     }
 
     vec3 colorWithLight = fragmentColor.rgb * lightWeighting;

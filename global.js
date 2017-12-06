@@ -30,3 +30,5 @@ var fog = {
 
 var particles = [];
 var numberOfParticles = 200;
+
+var oceanSceneObject = {};

@@ -33,17 +33,19 @@ function drawScene() {
     gl.useProgram(shaderProgram);
 
     setLightUniforms();
-    
+
 	if (!objectsLoaded) {
 	        return;
 	}
 
 	for (sceneObject in sceneObjects) {
 		sceneObjects[sceneObject].draw();
-	}	
+	}
 
  	gl.enable(gl.BLEND);
  	gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+ 	oceanSceneObject.draw();
 
  	for (particle of particles) {
  		particle.draw();

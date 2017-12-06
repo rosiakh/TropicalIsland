@@ -56,7 +56,9 @@ function createProgram() {
     program.pointLight_Position = gl.getUniformLocation(program, "uPointLight_Position");
 
     program.samplerUniform = gl.getUniformLocation(program, "uSampler");
+    program.samplerUniform2 = gl.getUniformLocation(program, "uSampler2");
     program.hasTexture = gl.getUniformLocation(program, "uHasTexture");
+    program.hasTexture2 = gl.getUniformLocation(program, "uHasTexture2");
 
     program.materialShininess = gl.getUniformLocation(program, "uMaterialShininess");
 

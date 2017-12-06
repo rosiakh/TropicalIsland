@@ -2,7 +2,7 @@
 function initLights() {
 	directionalLight_Color = [0.6, 0.6, 0.6];
 
-	directionalLight_AmbientIntensity = [0.1, 0.1, 0.1];
+	directionalLight_AmbientIntensity = [0.8, 0.8, 0.8];
 	
 	directionalLight_DiffuseIntensity = [0.7, 0.7, 0.7];
 	

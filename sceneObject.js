@@ -42,9 +42,8 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
 	}
 
 	this.draw = function() {
+		let mvMatrix = mat4.multiply(camera.wvMatrix, this.mwMatrix);
 		if(this.isBillboard) {
-			mvMatrix = mat4.multiply(camera.wvMatrix, this.mwMatrix);
-
 			// find vector to origin
 			//let vectorFromOrigin = mat4.multiplyVec3(mvMatrix, [0.0, 0.0, 0.0]);
 			//let vectorToOrigin = vectorFromOrigin.map(x => -x);
@@ -58,9 +57,6 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
 			//mat4.translate(rotBillboardMatrix, vectorFromOrigin);
 			mvMatrix = mat4.multiply(mvMatrix, rotBillboardMatrix);
 		}
-		else {
-			mvMatrix = mat4.multiply(camera.wvMatrix, this.mwMatrix);	
-		}
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, positionBuffer.itemSize, gl.FLOAT, false, 0, 0);
@@ -68,6 +64,7 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
     	gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
     	gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
+    	gl.uniform1i(shaderProgram.hasTexture2, false);
     	if (this.textureObject !== undefined) {
     		gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
     		gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);

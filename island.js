@@ -49,36 +49,79 @@ function createIsland() {
         }
     }
 
-    let islandVertexNormalBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, islandVertexNormalBuffer);
+    let vertexNormalBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normalData), gl.STATIC_DRAW);
-    islandVertexNormalBuffer.itemSize = 3;
-    islandVertexNormalBuffer.numItems = normalData.length / 3;
+    vertexNormalBuffer.itemSize = 3;
+    vertexNormalBuffer.numItems = normalData.length / 3;
 
-    let islandVertexPositionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, islandVertexPositionBuffer);
+    let vertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionData), gl.STATIC_DRAW);
-    islandVertexPositionBuffer.itemSize = 3;
-    islandVertexPositionBuffer.numItems = vertexPositionData.length / 3;
+    vertexPositionBuffer.itemSize = 3;
+    vertexPositionBuffer.numItems = vertexPositionData.length / 3;
 
-    let islandVertexIndexBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, islandVertexIndexBuffer);
+    let vertexIndexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vertexIndexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indexData), gl.STREAM_DRAW);
-    islandVertexIndexBuffer.itemSize = 1;
-    islandVertexIndexBuffer.numItems = indexData.length;
+    vertexIndexBuffer.itemSize = 1;
+    vertexIndexBuffer.numItems = indexData.length;
 
-    let islandVertexTextureCoordBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, islandVertexTextureCoordBuffer);
+    let vertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexTextureCoordBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
-    islandVertexTextureCoordBuffer.itemSize = 2;
-    islandVertexTextureCoordBuffer.numItems = textureCoords.length / 2;
+    vertexTextureCoordBuffer.itemSize = 2;
+    vertexTextureCoordBuffer.numItems = textureCoords.length / 2;
 
-    return {
-        vertexPositionBuffer: islandVertexPositionBuffer,
-        vertexIndexBuffer: islandVertexIndexBuffer,
-        vertexNormalBuffer: islandVertexNormalBuffer,
-        vertexTextureCoordBuffer: islandVertexTextureCoordBuffer,
-        textureObjectSource: "sand.jpg",
-        materialShininess: 5
-    }
+    sceneObjects['island'] = createSceneObject(
+        vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, "sand.jpg", 5);
+}
+
+function createBottom() {
+    vertexPositionData = [
+        -1.0, 0.0, 0.0,
+        -1.0, 2.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 2.0, 0.0];
+
+    indexData = [0, 1, 2, 2, 1, 3];
+
+    normalData = [
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0,
+        0.0, 0.0, 1.0];
+
+    textureCoords = [
+        0.0, 0.0,
+        0.0, 10.0,
+        10.0, 0.0,
+        10.0, 10.0];
+
+    let vertexNormalBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normalData), gl.STATIC_DRAW);
+    vertexNormalBuffer.itemSize = 3;
+    vertexNormalBuffer.numItems = normalData.length / 3;
+
+    let vertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositionData), gl.STATIC_DRAW);
+    vertexPositionBuffer.itemSize = 3;
+    vertexPositionBuffer.numItems = vertexPositionData.length / 3;
+
+    let vertexIndexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vertexIndexBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indexData), gl.STREAM_DRAW);
+    vertexIndexBuffer.itemSize = 1;
+    vertexIndexBuffer.numItems = indexData.length;
+
+    let vertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
+    vertexTextureCoordBuffer.itemSize = 2;
+    vertexTextureCoordBuffer.numItems = textureCoords.length / 2;
+
+    sceneObjects['bottom'] = createSceneObject(
+        vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, "sand.jpg", 5);
 }

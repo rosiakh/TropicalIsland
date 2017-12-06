@@ -10,9 +10,9 @@ function handleLoadedTexture(textureObject) {
 }
 
 function updateTextures() {
-	texBox1 = document.getElementById("texBox1").checked;
-	texBox2 = document.getElementById("texBox2").checked;
-	texBox3 = document.getElementById("texBox3").checked;
+	let texBox1 = document.getElementById("texBox1").checked;
+	let texBox2 = document.getElementById("texBox2").checked;
+	let texBox3 = document.getElementById("texBox3").checked;
 
 	for (sceneObject in sceneObjects) {
 		let textureObject = sceneObjects[sceneObject].textureObject;
