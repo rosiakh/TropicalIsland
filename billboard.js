@@ -70,10 +70,10 @@ function ParticleBillboard() {
         0.0, 0.0, 1.0];
 
     textureCoords = [
-        0.0, 0.0,
-        0.0, 0.25,
-        0.25, 0.0,
-        0.25, 0.25];
+        0.0, 0.75,
+        0.0, 1.0,
+        0.25, 0.75,
+        0.25, 0.75];
 
     let vertexNormalBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
@@ -105,7 +105,8 @@ function ParticleBillboard() {
         vertexNormalBuffer: vertexNormalBuffer,
         vertexTextureCoordBuffer: vertexTextureCoordBuffer,
         textureObjectSource: "fire.jpg",
-        materialShininess: 5
+        materialShininess: 5,
+        textureCoords: textureCoords
     }
 }
 

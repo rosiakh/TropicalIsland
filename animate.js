@@ -7,10 +7,11 @@ function animateLight(timeNow) {
 function animateParticles(elapsed) {
     for (particle of particles) {
         particle.moveBy(particle.speedVector.map(x => x) * elapsed, elapsed);
+        particle.animateTexture();
     }
 }
 
-function animateTextures(elapsed) {
+function animateBottomTexture(elapsed) {
     let oldTextureCoords = sceneObjects['bottom'].textureCoords;
     let newTextureCoords = [
         oldTextureCoords[0] + textureXSpeed * elapsed, 0.0,
@@ -54,7 +55,7 @@ function animate() {
         camera.pitch += camera.pitchRate * elapsed;
 
         animateParticles(elapsed);
-        animateTextures(elapsed);
+        animateBottomTexture(elapsed);
     }
     
     lastTime = timeNow;
