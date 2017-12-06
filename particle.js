@@ -68,10 +68,22 @@ function randomStartingLocation() {
 function randomSpeedVector() {
 	return [
 	0.0 + (Math.random() - 0.5) * 0.005,
-	0.01 + (Math.random() - 0.5) * 0.01,
+	0.005 + (Math.random() - 0.5) * 0.001,
 	0.0 + (Math.random() - 0.5) * 0.005];
 }
 
 function randomLifeSpan() {
 	return 3000 + (Math.random() - 0.5) * 3000;
+}
+
+function particleSort(particle1, particle2) {
+	let mvMatrix1 = mat4.multiply(camera.wvMatrix, particle1.billboard.mwMatrix);
+	let vectorFromOrigin1 = mat4.multiplyVec3(mvMatrix1, [0.0, 0.0, 0.0]);
+	let distance1 = vec3.length(vectorFromOrigin1);
+
+	let mvMatrix2 = mat4.multiply(camera.wvMatrix, particle2.billboard.mwMatrix);
+	let vectorFromOrigin2 = mat4.multiplyVec3(mvMatrix2, [0.0, 0.0, 0.0]);
+	let distance2 = vec3.length(vectorFromOrigin2);
+
+	return distance2 - distance1;
 }

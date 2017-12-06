@@ -47,6 +47,7 @@ function drawScene() {
 
  	oceanSceneObject.draw();
 
+ 	particles.sort(particleSort);
  	for (particle of particles) {
  		particle.draw();
  	}

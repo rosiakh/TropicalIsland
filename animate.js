@@ -10,27 +10,23 @@ function animateParticles(elapsed) {
     }
 }
 
-var textureCoords = [
-    0.0, 0.0,
-    0.0, 1.0,
-    1.0, 0.0,
-    1.0, 1.0];
-
 function animateTextures(elapsed) {
-    textureCoords = [
-        textureCoords[0] + textureXSpeed * elapsed, 0.0,
-        textureCoords[2] + textureXSpeed * elapsed, 1.0,
-        textureCoords[4] + textureXSpeed * elapsed, 0.0,
-        textureCoords[6] + textureXSpeed * elapsed, 1.0];
+    let oldTextureCoords = sceneObjects['bottom'].textureCoords;
+    let newTextureCoords = [
+        oldTextureCoords[0] + textureXSpeed * elapsed, 0.0,
+        oldTextureCoords[2] + textureXSpeed * elapsed, 1.0,
+        oldTextureCoords[4] + textureXSpeed * elapsed, 0.0,
+        oldTextureCoords[6] + textureXSpeed * elapsed, 1.0];
 
     let vertexTextureCoordBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexTextureCoordBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(newTextureCoords), gl.STATIC_DRAW);
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexTextureCoordBuffer);
     vertexTextureCoordBuffer.itemSize = 2;
-    vertexTextureCoordBuffer.numItems = textureCoords.length / 2;
+    vertexTextureCoordBuffer.numItems = newTextureCoords.length / 2;
 
     sceneObjects['bottom'].textureBuffer = vertexTextureCoordBuffer;
+    sceneObjects['bottom'].textureCoords = newTextureCoords;
 }
 
 function animate() {

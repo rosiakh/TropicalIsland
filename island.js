@@ -124,4 +124,5 @@ function createBottom() {
 
     sceneObjects['bottom'] = createSceneObject(
         vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, "sand.jpg", 5);
+    sceneObjects['bottom'].textureCoords = textureCoords;
 }
