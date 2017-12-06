@@ -58,3 +58,8 @@ function updateTextures() {
 
 	// don't change particles' textures
 }
+
+function changeTextureSpeed() {
+	let speed = document.getElementById("textureSpeedRange").value;
+	textureXSpeed = speed * 0.001;
+}

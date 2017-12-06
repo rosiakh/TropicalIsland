@@ -10,6 +10,29 @@ function animateParticles(elapsed) {
     }
 }
 
+var textureCoords = [
+    0.0, 0.0,
+    0.0, 1.0,
+    1.0, 0.0,
+    1.0, 1.0];
+
+function animateTextures(elapsed) {
+    textureCoords = [
+        textureCoords[0] + textureXSpeed * elapsed, 0.0,
+        textureCoords[2] + textureXSpeed * elapsed, 1.0,
+        textureCoords[4] + textureXSpeed * elapsed, 0.0,
+        textureCoords[6] + textureXSpeed * elapsed, 1.0];
+
+    let vertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexTextureCoordBuffer);
+    vertexTextureCoordBuffer.itemSize = 2;
+    vertexTextureCoordBuffer.numItems = textureCoords.length / 2;
+
+    sceneObjects['bottom'].textureBuffer = vertexTextureCoordBuffer;
+}
+
 function animate() {
     let timeNow = new Date().getTime();
 
@@ -35,6 +58,7 @@ function animate() {
         camera.pitch += camera.pitchRate * elapsed;
 
         animateParticles(elapsed);
+        animateTextures(elapsed);
     }
     
     lastTime = timeNow;

@@ -58,7 +58,6 @@ void main(void) {
             vec4 color1 = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
             vec4 color2 = texture2D(uSampler2, vec2(vTextureCoord.s, vTextureCoord.t));
             fragmentColor = mix(color1, color2, 0.2);
-            //fragmentColor = color1;
         } else {
             vec4 color1 = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
             fragmentColor = color1;  

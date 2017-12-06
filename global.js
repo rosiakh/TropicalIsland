@@ -32,3 +32,5 @@ var particles = [];
 var numberOfParticles = 200;
 
 var oceanSceneObject = {};
+
+var textureXSpeed = 0.0001;

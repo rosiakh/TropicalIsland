@@ -58,17 +58,17 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
 			mvMatrix = mat4.multiply(mvMatrix, rotBillboardMatrix);
 		}
 
-		gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, positionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
+    	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, this.positionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     	gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
-    	gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    	gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, this.normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     	gl.uniform1i(shaderProgram.hasTexture2, false);
     	if (this.textureObject !== undefined) {
     		gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
-    		gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
-    		gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, textureBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    		gl.bindBuffer(gl.ARRAY_BUFFER, this.textureBuffer);
+    		gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, this.textureBuffer.itemSize, gl.FLOAT, false, 0, 0);
 	
 	    	gl.activeTexture(gl.TEXTURE0);
 	    	gl.bindTexture(gl.TEXTURE_2D, this.textureObject);
@@ -80,12 +80,12 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
     		gl.uniform1i(shaderProgram.hasTexture, false);
     	}
 
-    	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+    	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
 
     	setMatrixUniforms(mvMatrix);
     	gl.uniform1f(shaderProgram.materialShininess, this.materialShininess);
 
-    	gl.drawElements(gl.TRIANGLES, indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+    	gl.drawElements(gl.TRIANGLES, this.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 	}
 
 	this.initTexture = function() {
