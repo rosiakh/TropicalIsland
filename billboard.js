@@ -49,7 +49,7 @@ function Billboard() {
         vertexIndexBuffer: vertexIndexBuffer,
         vertexNormalBuffer: vertexNormalBuffer,
         vertexTextureCoordBuffer: vertexTextureCoordBuffer,
-        textureObjectSource: "crate.gif",
+        textureObjectSource: "RENDER_TEXTURE",
         materialShininess: 5
     }
 }

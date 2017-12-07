@@ -98,13 +98,79 @@ function SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, t
 	
 		this.textureObject = textureObject;
 	}
+
+	this.initOwnTexture = function() {
+		let textureObject = gl.createTexture();
+
+		gl.bindTexture(gl.TEXTURE_2D, textureObject);
+
+		const level = 0;
+		const internalFormat = gl.LUMINANCE;
+		const width = 3;
+		const height = 2;
+		const border = 0;
+		const format = gl.LUMINANCE;
+		const type = gl.UNSIGNED_BYTE;
+		const data = new Uint8Array([
+  			128,  64, 128,
+  		  	0, 192,   0,]);
+
+		gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, width, height, border,
+              format, type, data);
+
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+    	gl.bindTexture(gl.TEXTURE_2D, null);
+
+    	this.textureObject = textureObject;
+	}
 }
 
 function createSceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, textureObjectSource, materialShininess = 100) {
 	let sceneObject = new SceneObject(positionBuffer, indexBuffer, normalBuffer, textureBuffer, textureObjectSource, materialShininess);
-	if (textureObjectSource !== undefined) {
+	if (textureObjectSource == "OWN_TEXTURE") {
+		sceneObject.initOwnTexture();
+	}
+	else if (textureObjectSource == "RENDER_TEXTURE") {
+		sceneObject.textureObject = targetTexture;
+	}
+	else if (textureObjectSource !== undefined) {
 		sceneObject.initTexture();
 	}
 
 	return sceneObject;
+}
+
+initRenderTexture = function() {
+	targetTexture = gl.createTexture();
+
+	gl.bindTexture(gl.TEXTURE_2D, targetTexture);
+
+	const level = 0;
+  	const internalFormat = gl.RGBA;
+  	const border = 0;
+  	const format = gl.RGBA;
+  	const type = gl.UNSIGNED_BYTE;
+  	const data = null;
+ 	gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, 
+ 		targetTextureWidth, targetTextureHeight, border,
+        format, type, data);
+
+ 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+  	fb = gl.createFramebuffer();
+	gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+
+	const attachmentPoint = gl.COLOR_ATTACHMENT0;
+	gl.framebufferTexture2D(gl.FRAMEBUFFER, attachmentPoint, gl.TEXTURE_2D, targetTexture, level);
+
+	gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+	gl.bindTexture(gl.TEXTURE_2D, null);
+
+    //this.textureObject = targetTexture;
 }

@@ -29,8 +29,14 @@ var fog = {
 };
 
 var particles = [];
-var numberOfParticles = 100;
+var numberOfParticles = 10;
 
 var oceanSceneObject = {};
 
 var textureXSpeed = 0.0001;
+
+var targetTexture;
+var targetTextureWidth = 1024;
+var targetTextureHeight = 1024;
+
+var fb;

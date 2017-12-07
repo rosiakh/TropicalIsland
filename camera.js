@@ -33,5 +33,5 @@ function initCamera() {
 	camera.yPos = 5;
 	camera.zPos = 8;
 	camera['pitch'] = -30;
-	camera['yaw'] = -5;
+	camera['yaw'] = -25;
 }

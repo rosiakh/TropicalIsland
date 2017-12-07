@@ -25,12 +25,7 @@ function setLightUniforms() {
 }
 
 function drawScene() {
-	gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-    mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
-
-    gl.useProgram(shaderProgram);
+	gl.useProgram(shaderProgram);
 
     setLightUniforms();
 
@@ -38,6 +33,49 @@ function drawScene() {
 	        return;
 	}
 
+	// draw to texture
+
+	let x = camera.xPos;
+	let y = camera.yPos;
+	let z = camera.zPos;
+	let pitch = camera.pitch;
+	let yaw = camera.yaw;
+
+	camera.xPos = 0;
+	camera.yPos = 2;
+	camera.zPos = 3;
+	camera.pitch = -30;
+	camera.yaw = -25;
+
+	mat4.perspective(45, targetTextureWidth / targetTextureHeight, 0.1, 100.0, pMatrix);
+
+	gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+	gl.bindTexture(gl.TEXTURE_2D, targetTexture);
+	gl.viewport(0, 0, targetTextureWidth, targetTextureHeight);
+	gl.clearColor(0, 0, 1, 1);
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+	drawSceneObjects();
+
+	camera.xPos = x;
+	camera.yPos = y;
+	camera.zPos = z;
+	camera.pitch = pitch;
+	camera.yaw = yaw;
+
+	// draw to canvas
+
+	mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+
+	gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+	gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    gl.clearColor(0, 0, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    drawSceneObjects();
+}
+
+function drawSceneObjects() {
 	for (sceneObject in sceneObjects) {
 		sceneObjects[sceneObject].draw();
 	}
