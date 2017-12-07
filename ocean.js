@@ -45,11 +45,11 @@ function createOcean() {
     vertexTextureCoordBuffer.numItems = textureCoords.length / 2;
 
     oceanSceneObject = createSceneObject(
-        vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, "ocean1.jpg", 5);
+        vertexPositionBuffer, vertexIndexBuffer, vertexNormalBuffer, vertexTextureCoordBuffer, "ocean.jpg", 5);
 
     oceanSceneObject["initSecondTexture"] = initSecondTexture;
     oceanSceneObject["draw"] = drawOcean;
-    oceanSceneObject.initSecondTexture("ocean3.jpg");
+    oceanSceneObject.initSecondTexture("ocean2.jpg");
 }
 
 function initSecondTexture(textureObjectSource2) {
@@ -107,6 +107,6 @@ function changeOceanTextures() {
         oceanSceneObject.initSecondTexture("ocean2.jpg");
     }
     else {
-        oceanSceneObject.initSecondTexture("ocean3.jpg");
+        oceanSceneObject.initSecondTexture("ocean4.jpg");
     }
 }

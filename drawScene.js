@@ -41,11 +41,11 @@ function drawScene() {
 	let pitch = camera.pitch;
 	let yaw = camera.yaw;
 
-	camera.xPos = 0;
-	camera.yPos = 2;
-	camera.zPos = 3;
-	camera.pitch = -30;
-	camera.yaw = -25;
+	camera.xPos = -3;
+	camera.yPos = 1.5;
+	camera.zPos = -1;
+	camera.pitch = 0;
+	camera.yaw = -110;
 
 	mat4.perspective(45, targetTextureWidth / targetTextureHeight, 0.1, 100.0, pMatrix);
 
@@ -55,7 +55,7 @@ function drawScene() {
 	gl.clearColor(0, 0, 1, 1);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-	drawSceneObjects();
+	drawSceneObjectsToTexture();
 
 	camera.xPos = x;
 	camera.yPos = y;
@@ -76,14 +76,45 @@ function drawScene() {
 }
 
 function drawSceneObjects() {
+	sceneObjects["bottom"].draw();
+
 	for (sceneObject in sceneObjects) {
-		sceneObjects[sceneObject].draw();
+		if (sceneObject !== "bottom") {
+			sceneObjects[sceneObject].draw();
+		}	
+	}
+
+	gl.enable(gl.BLEND);
+ 	gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+ 	oceanSceneObject.draw();
+
+ 	particles.sort(particleSort);
+ 	for (particle of particles) {
+ 		particle.draw();
+ 	}
+
+	gl.disable(gl.BLEND);
+}
+
+function drawSceneObjectsToTexture() {
+	sceneObjects["bottom"].draw();
+
+	gl.enable(gl.BLEND);
+ 	gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+ 	oceanSceneObject.draw();
+
+ 	gl.disable(gl.BLEND);
+
+	for (sceneObject in sceneObjects) {
+		if (sceneObject !== "bottom") {
+			sceneObjects[sceneObject].draw();
+		}	
 	}
 
  	gl.enable(gl.BLEND);
  	gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-
- 	oceanSceneObject.draw();
 
  	particles.sort(particleSort);
  	for (particle of particles) {

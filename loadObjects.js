@@ -4,17 +4,14 @@ function moveObjectsToScene() {
 	sceneObjects['island'].translationVector = [2, 0, 0];
     sceneObjects['island'].scalingVector = [3, 0.6, 2];
 
-    sceneObjects['tree_1'].translationVector = [0, 0.3, 0];
-    sceneObjects['tree_1'].scalingVector = [0.02, 0.02, 0.02];
-    sceneObjects['tree_1'].rotationAngleX = -90;
+    sceneObjects['fireplace'].translationVector = [1.5, 0.5, 0];
+    sceneObjects['fireplace'].scalingVector = [0.1, 0.1, 0.1];
 
-    sceneObjects['tree_2'].translationVector = [2, 0.6, 0];
-    sceneObjects['tree_2'].scalingVector = [0.01, 0.01, 0.01];
-    sceneObjects['tree_2'].rotationAngleX = -90;
-    sceneObjects['tree_2'].rotationAngleZ = 30;
+    sceneObjects['pig_1'].translationVector = [3, 0.5, 0];
+    sceneObjects['pig_1'].scalingVector = [0.35, 0.35, 0.35];
 
-    sceneObjects['pig'].translationVector = [3, 0.5, 0];
-    sceneObjects['pig'].scalingVector = [0.45, 0.45, 0.45];
+    sceneObjects['pig_2'].translationVector = [0, 0.4, 0];
+    sceneObjects['pig_2'].scalingVector = [0.45, 0.45, 0.45];
 
     sceneObjects['boat'].translationVector = [5, 0.5, 0];
     sceneObjects['boat'].scalingVector = [0.003, 0.003, 0.003];
@@ -33,12 +30,12 @@ function handleLoadedObjects(data) {
     	OBJ.initMeshBuffers(gl, data[mesh]);
     }
 
-    sceneObjects['tree_1'] = 
-    	createSceneObject(data['tree'].vertexBuffer, data['tree'].indexBuffer, data['tree'].normalBuffer, data['tree'].textureBuffer);
-    sceneObjects['tree_2'] = 
-    	createSceneObject(data['tree'].vertexBuffer, data['tree'].indexBuffer, data['tree'].normalBuffer, data['tree'].textureBuffer);
-    sceneObjects['pig'] = 
-    	createSceneObject(data['pig'].vertexBuffer, data['pig'].indexBuffer, data['pig'].normalBuffer, data['pig'].textureBuffer);
+    sceneObjects['fireplace'] = 
+        createSceneObject(data['fireplace'].vertexBuffer, data['fireplace'].indexBuffer, data['fireplace'].normalBuffer, data['fireplace'].textureBuffer, "fireplace.png");
+    sceneObjects['pig_1'] = 
+    	createSceneObject(data['pig'].vertexBuffer, data['pig'].indexBuffer, data['pig'].normalBuffer, data['pig'].textureBuffer, "horse.jpg");
+    sceneObjects['pig_2'] = 
+        createSceneObject(data['pig'].vertexBuffer, data['pig'].indexBuffer, data['pig'].normalBuffer, data['pig'].textureBuffer, "horse.jpg");
     sceneObjects['boat'] = 
     	createSceneObject(data['boat'].vertexBuffer, data['boat'].indexBuffer, data['boat'].normalBuffer, data['boat'].textureBuffer, "dark.jpg");
  
@@ -55,7 +52,7 @@ function loadObjects() {
     createOcean();
 
     OBJ.downloadMeshes({
-        'tree': 'models/Palm_Tree.obj',
+        'fireplace': 'models/fireplace.obj',
         'pig': 'models/pig.obj',
         'boat': 'models/Cruiser 2012.obj'}, 
         handleLoadedObjects);   
