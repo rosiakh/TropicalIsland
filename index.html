@@ -36,21 +36,23 @@
 <canvas id="canvas_1" style="border: none;" width="800" height="600"></canvas>
 
 <div>
-	<input type="checkbox" id="texBox1" checked onclick="updateTextures()" /> Liniowy filtr dla powiększania
+	<input type="checkbox" id="texBox1" checked onclick="updateTextures()" /> Liniowy filtr dla powiekszania
 	<br/>
-	<input type="checkbox" id="texBox2" checked onclick="updateTextures()" /> Filtrowanie trójliniowe dla mipmap
+	<input type="checkbox" id="texBox2" checked onclick="updateTextures()" /> Filtrowanie trojliniowe dla mipmap
 	<br/>
 	<input type="checkbox" id="texBox3" checked onclick="updateTextures()" /> Zmiana poziomu mipmap
 	<br/>
 	<input type="checkbox" id="oceanTexBox" checked onclick="changeOceanTextures()" /> Zmiana tekstury oceanu
 	<br/>
-	<input type="range" id="textureSpeedRange" min="1" max="10" value="1" onchange="changeTextureSpeed()" /> Prędkość tekstury
+	<input type="range" id="textureSpeedRange" min="1" max="10" value="1" onchange="changeTextureSpeed()" /> Predkosc tekstury
 	<br/>
 	<input type="checkbox" id="fogBox" checked onclick="fogBoxClicked()" /> Mgla
 	<br/>
-	<input type="button" id="fogDistanceButton" checked onclick="fogDistanceButtonClicked()" /> Zmien odległosc mgly
+	<input type="button" id="fogDistanceButton" onclick="fogDistanceButtonClicked()" /> Zmien odleglosc mgly
 	<br/>
-	<input type="button" id="fogDensityButton" checked onclick="fogDensityButtonClicked()" /> Zmien gestosc mgły
+	<input type="button" id="fogDensityButton" onclick="fogDensityButtonClicked()" /> Zmien gestosc mgly
+	<br/>
+	<!--<input type="checkbox" id="antialiasingBox" checked onclick="changeAntialiasing()" /> Antialiasing-->
 </div>
 
 </body>

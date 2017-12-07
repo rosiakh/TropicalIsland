@@ -88,7 +88,7 @@ function loadParticles() {
     	billboard.textureCoords = textureCoords;
 
     	billboard.translationVector = particle.startingLocation;
-    	billboard.scalingVector = [0.01, 0.01, 0.01];
+    	billboard.scalingVector = [0.03, 0.03, 0.03];
     	billboard.isBillboard = true;
 
     	particle.billboard = billboard;
@@ -100,7 +100,7 @@ function loadParticles() {
 function randomStartingLocation() {
 	return [
 		1.5 + (Math.random() - 0.5) * 0.1,
-		1.0 + (Math.random() - 0.5) * 0.1,
+		0.8 + (Math.random() - 0.5) * 0.1,
 		0.0 + (Math.random() - 0.5) * 0.1];
 }
 

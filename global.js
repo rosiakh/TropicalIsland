@@ -26,7 +26,7 @@ var pointLight_Position;
 var useFog = true;
 var fog = {
 	color: new Float32Array([0.0, 0.0, 1.0]),
-	distance: new Float32Array([5, 40]),
+	distance: new Float32Array([20, 60]),
 	density: 0.1
 };
 
@@ -42,3 +42,5 @@ var targetTextureWidth = 1024;
 var targetTextureHeight = 1024;
 
 var fb;
+
+var antialiasing = true;

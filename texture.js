@@ -49,8 +49,8 @@ function updateTextures() {
 		}
 		else {
 			gl.bindTexture(gl.TEXTURE_2D, textureObject);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAX_LOD, 2);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_LOD, -2);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAX_LOD, 1.5);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_LOD, -1.5);
 			gl.generateMipmap(gl.TEXTURE_2D);
 			gl.bindTexture(gl.TEXTURE_2D, null);
 		}

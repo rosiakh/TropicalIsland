@@ -83,3 +83,8 @@ function fogDensityButtonClicked() {
         fog.density = 0.1;
     }
 }
+
+function changeAntialiasing() {
+    antialiasing = document.getElementById("antialiasingBox").checked; 
+    webGLStart();
+}

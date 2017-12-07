@@ -1,7 +1,8 @@
 
 function initGL(canvas) {
     try {
-        gl = canvas.getContext("experimental-webgl");
+        gl = canvas.getContext("experimental-webgl", {antialias: antialiasing});
+        //gl = canvas.getContext("webgl2", {antialias: antialiasing});
         gl.viewportWidth = canvas.width;
         gl.viewportHeight = canvas.height;
     } catch (e) {
@@ -13,6 +14,10 @@ function initGL(canvas) {
 }
 
 function webGLStart() {
+    start();
+}
+
+function start() {
     canvas = document.getElementById("canvas_1");
 
     initGL(canvas);

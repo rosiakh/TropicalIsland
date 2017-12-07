@@ -70,6 +70,7 @@ void main(void) {
     }
 
     vec3 colorWithLight = fragmentColor.rgb * lightWeighting;
+    fragmentColor = vec4(colorWithLight, fragmentColor.a);
 
     // fog
     if (uUseFog) {
