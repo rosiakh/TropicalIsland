@@ -17,8 +17,10 @@ uniform sampler2D uSampler2;
 uniform bool uHasTexture;
 uniform bool uHasTexture2;
 
+uniform bool uUseFog;
 uniform vec3 uFogColor;
 uniform vec2 uFogDistance;
+uniform float uFogDensity;
 
 uniform float uMaterialShininess;
 
@@ -70,10 +72,14 @@ void main(void) {
     vec3 colorWithLight = fragmentColor.rgb * lightWeighting;
 
     // fog
-    float distanceToFragment = sqrt(vPosition.x * vPosition.x + vPosition.y * vPosition.y + vPosition.z * vPosition.z);
-    float fogFactor = clamp((uFogDistance.y - distanceToFragment) / (uFogDistance.y - uFogDistance.x), 0.0, 1.0);
-    vec3 colorWithFog = mix(uFogColor, colorWithLight, fogFactor);
+    if (uUseFog) {
+        float distanceToFragment = sqrt(vPosition.x * vPosition.x + vPosition.y * vPosition.y + vPosition.z * vPosition.z);
+        float fogFactor = clamp((uFogDistance.y - distanceToFragment) / (uFogDistance.y - uFogDistance.x), uFogDensity, 1.0);
+        vec3 colorWithFog = mix(uFogColor, colorWithLight, fogFactor);
+    
+        fragmentColor = vec4(colorWithFog, fragmentColor.a);
+    }
 
-    gl_FragColor = vec4(colorWithFog, fragmentColor.a);
+    gl_FragColor = vec4(fragmentColor.rgb, fragmentColor.a);
 }
 `;

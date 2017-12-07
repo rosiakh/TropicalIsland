@@ -62,8 +62,10 @@ function createProgram() {
 
     program.materialShininess = gl.getUniformLocation(program, "uMaterialShininess");
 
+    program.useFog = gl.getUniformLocation(program, "uUseFog");
     program.fogColor = gl.getUniformLocation(program, "uFogColor");
     program.fogDistance = gl.getUniformLocation(program, "uFogDistance");
+    program.fogDensity = gl.getUniformLocation(program, "uFogDensity");
 
     return program;
 }

@@ -61,3 +61,25 @@ function handleKeys() {
         camera.ySpeed = 0;
     }
 }
+
+function fogBoxClicked() {
+    useFog = document.getElementById("fogBox").checked;      
+}
+
+function fogDistanceButtonClicked() {
+    if (fog.distance[0] < 10) {
+        fog.distance = [20, 60];
+    } 
+    else {
+        fog.distance = [5, 15];
+    }
+}
+
+function fogDensityButtonClicked() {
+    if (fog.density < 0.2) {
+        fog.density = 0.3;
+    }
+    else {
+        fog.density = 0.1;
+    }
+}

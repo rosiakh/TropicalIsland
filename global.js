@@ -23,9 +23,11 @@ var directionalLightDirection;
 var pointLight_Color;
 var pointLight_Position;
 
+var useFog = true;
 var fog = {
 	color: new Float32Array([0.0, 0.0, 1.0]),
-	distance: new Float32Array([5, 40])
+	distance: new Float32Array([5, 40]),
+	density: 0.1
 };
 
 var particles = [];
