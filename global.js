@@ -31,7 +31,7 @@ var fog = {
 };
 
 var particles = [];
-var numberOfParticles = 150;
+var numberOfParticles = 5;
 
 var oceanSceneObject = {};
 
@@ -44,3 +44,7 @@ var targetTextureHeight = 1024;
 var fb;
 
 var antialiasing = true;
+
+var useFisheye = false;
+
+var showOcean = true;

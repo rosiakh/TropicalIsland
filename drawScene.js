@@ -9,6 +9,8 @@ function setMatrixUniforms(mvMatrix) {
     gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);   
     gl.uniformMatrix3fv(shaderProgram.nMatrixUniform, false, normalMatrix);
     gl.uniformMatrix4fv(shaderProgram.wvMatrixUniform, false, camera.wvMatrix);
+
+    gl.uniform1i(shaderProgram.useFisheye, useFisheye);
 }
 
 function setLightUniforms() {	
@@ -67,7 +69,8 @@ function drawScene() {
 
 	// draw to canvas
 
-	mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+	//mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+	pMatrix = createPerspectiveMatrix(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 
 	gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 	gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
@@ -77,8 +80,26 @@ function drawScene() {
     drawSceneObjects();
 }
 
+function createPerspectiveMatrix(kat, ar, nearz, farz, mat){
+	tan = Math.tan(kat*Math.PI/360);
+
+	pMatrix = mat4.create();
+
+	pMatrix[0] = 1/(ar*tan); pMatrix[1] = 0; pMatrix[2] = 0; pMatrix[3] = 0;
+
+	pMatrix[4] = 0; pMatrix[5] = 1/tan; pMatrix[6] = 0; pMatrix[7] = 0;
+
+	pMatrix[8] = 0; pMatrix[9] = 0; pMatrix[10] = -(farz+nearz)/(farz-nearz); pMatrix[11] = -1;
+
+	pMatrix[12] = 0; pMatrix[13] = 0; pMatrix[14] = -(farz*nearz*2)/(farz-nearz); pMatrix[15] = 0;
+
+	return pMatrix;
+}
+
 function drawSceneObjects() {
-	sceneObjects["bottom"].draw();
+	if(showOcean){
+		sceneObjects["bottom"].draw();
+	}
 
 	for (sceneObject in sceneObjects) {
 		if (sceneObject !== "bottom") {
@@ -89,7 +110,9 @@ function drawSceneObjects() {
 	gl.enable(gl.BLEND);
  	gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
- 	oceanSceneObject.draw();
+ 	if(showOcean){
+ 		oceanSceneObject.draw();
+ 	}
 
  	particles.sort(particleSort);
  	for (particle of particles) {
@@ -100,13 +123,17 @@ function drawSceneObjects() {
 }
 
 function drawSceneObjectsToTexture() {
-	sceneObjects["bottom"].draw();
-
+	if(showOcean){
+		sceneObjects["bottom"].draw();
+	}
+	
 	gl.enable(gl.BLEND);
  	gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
- 	oceanSceneObject.draw();
-
+ 	if(showOcean){
+ 		oceanSceneObject.draw();
+ 	}
+ 	
  	gl.disable(gl.BLEND);
 
 	for (sceneObject in sceneObjects) {

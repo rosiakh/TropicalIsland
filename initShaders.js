@@ -67,6 +67,8 @@ function createProgram() {
     program.fogDistance = gl.getUniformLocation(program, "uFogDistance");
     program.fogDensity = gl.getUniformLocation(program, "uFogDensity");
 
+    program.useFisheye = gl.getUniformLocation(program, "uUseFisheye");
+
     return program;
 }
 

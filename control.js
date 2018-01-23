@@ -88,3 +88,8 @@ function changeAntialiasing() {
     antialiasing = document.getElementById("antialiasingBox").checked; 
     webGLStart();
 }
+
+function fisheyeClick() {
+	useFisheye = document.getElementById("fishBox").checked;
+	showOcean = !useFisheye;
+}

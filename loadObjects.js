@@ -16,13 +16,15 @@ function moveObjectsToScene() {
     sceneObjects['boat'].translationVector = [5, 0.5, 0];
     sceneObjects['boat'].scalingVector = [0.003, 0.003, 0.003];
 
-    sceneObjects['bottom'].translationVector = [0, -10, 20];
-    sceneObjects['bottom'].scalingVector = [20, 20, 20];
-    sceneObjects['bottom'].rotationAngleX = -90;
-
-    oceanSceneObject.translationVector = [0, 0, 20];
-    oceanSceneObject.scalingVector = [20, 20, 20];
-    oceanSceneObject.rotationAngleX = -90;
+    if(showOcean){
+    	sceneObjects['bottom'].translationVector = [0, -10, 20];
+    	sceneObjects['bottom'].scalingVector = [20, 20, 20];
+    	sceneObjects['bottom'].rotationAngleX = -90;
+    
+    	oceanSceneObject.translationVector = [0, 0, 20];
+    	oceanSceneObject.scalingVector = [20, 20, 20];
+    	oceanSceneObject.rotationAngleX = -90;
+    }
 }
 
 function handleLoadedObjects(data) {

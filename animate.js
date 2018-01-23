@@ -55,7 +55,11 @@ function animate() {
         camera.pitch += camera.pitchRate * elapsed;
 
         animateParticles(elapsed);
-        animateBottomTexture(elapsed);
+        if(showOcean){
+        	animateBottomTexture(elapsed);	
+        }
+        
+        
     }
     
     lastTime = timeNow;
